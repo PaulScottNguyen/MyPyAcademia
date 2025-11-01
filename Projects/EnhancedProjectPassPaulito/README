@@ -1,0 +1,129 @@
+SO basically I made this as my final project for CS50P in early 2025, this time I will add another layer of security by encrypting the password data inside the txt file.
+How does it work?
+So basically the program asks a masterpassword, it will translate the masterpassword into AES 32byte code and then into Fernet key
+The Fernet key will be used to encrypt/decrypt everything, very secure indeed!:3
+Everything else is the same old ProjectPassPaulito
+
+Pass Paulito Manager
+
+Pass Paulito Manager is a simple but secure command-line password manager built with Python.
+It stores your passwords in an encrypted local database (Database.txt) and decrypts them only when you enter your Master Password.
+
+Made by Paul Scott Nguyen
+
+Features:
+
+Master password–based encryption
+
+Local encrypted database (Database.txt)
+
+Manual or auto password creation
+
+View passwords by ID or grouped by website
+
+Update or delete saved passwords
+
+All passwords encrypted using the Fernet symmetric encryption system
+
+How It Works
+1. Master Password → Encryption Key
+
+When you start the program, it asks for your Master Password.
+That password isn’t stored anywhere — instead, it’s transformed into a cryptographic key through this process:
+
+key = hashlib.sha256(master_password.encode()).digest()
+fernet_key = base64.urlsafe_b64encode(key)
+fernet = Fernet(fernet_key)
+
+Explanation:
+
+hashlib.sha256() converts your password into a 32-byte (256-bit) hash.
+
+The result is encoded with base64.urlsafe_b64encode(), which turns it into a Fernet-compatible key.
+
+Fernet uses this key to encrypt and decrypt all your stored passwords.
+
+So typing the same master password always gives you the same key — allowing you to decrypt your saved data.
+
+2. Database Setup
+
+When the program runs for the first time, it checks for Database.txt.
+If it doesn’t exist, it automatically creates one with these columns:
+
+ID | Website | Username | Password
+
+Passwords are encrypted before being stored.
+
+3. Main Menu Options
+
+After entering your master password, you’ll see:
+
+1. To add Password manually
+2. To add Password automatically
+3. To see all passwords
+4. To delete a password
+5. To update a password
+6. To exit
+
+Option 1: Add Password Manually
+
+You enter:
+
+Website
+
+Username
+
+Password
+
+Then the password is encrypted and saved to Database.txt with an incrementing ID number.
+
+Option 2: Add Password Automatically
+
+If you don’t want to make a password yourself, this option will generate one for you.
+
+It asks for a length (e.g., 16), then uses:
+
+secrets.choice(string.ascii_letters + string.digits + string.punctuation)
+
+to build a strong random password.
+
+The password is printed for you to copy and is stored encrypted in the database.
+
+Option 3: View Passwords
+
+You can view:
+
+Passwords by ID
+
+Passwords grouped by website
+
+All passwords are decrypted on the fly using your Fernet key.
+They’re never stored or printed in plaintext unless you’re viewing them through this program.
+
+Option 4: Delete a Password
+
+You enter the website and username.
+If a match is found, the program asks for confirmation before deleting the entry from the file.
+
+IDs are then automatically re-numbered so the database stays clean.
+
+Option 5: Update a Password
+
+You choose the website and username, enter a new password, and the program replaces the old encrypted value with a freshly encrypted one.
+
+Option 6: Exit
+
+Encryption Details
+
+Fernet encryption is provided by the cryptography library and is symmetric — meaning the same key is used to both encrypt and decrypt data.
+
+Your passwords are converted like this:
+
+encrypted = fernet.encrypt(password.encode()).decode()
+decrypted = fernet.decrypt(encrypted.encode()).decode()
+
+So without the exact same master password, the data in Database.txt is unreadable garbage.
+
+Example of an encrypted password:
+
+gAAAAABmXyP6lX0iZsZrjS6k1tKp2ZLRkF3Qw1Tk1JybH6vM7f3YB2Y...

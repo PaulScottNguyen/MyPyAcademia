@@ -1,0 +1,1 @@
+So basically, the program will generate a random int for the user to guess, it also has a difficulty options from 1-3. For each answer the user input, the program will tell if the number was higher, lower than or was the correct number. Unlike the program I did in Chapter4 of my CS50P repo, I added that it will count the number of times the user has guessed:3
