@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="BackgroundImage">
+    <file>Background.jpg</file>
+  </qresource>
+  <qresource prefix="ShowPasswords">
+    <file>ShowPasswords.png</file>
+  </qresource>
+  <qresource prefix="IconImage">
+    <file>Icon.png</file>
+  </qresource>
+</RCC>
