@@ -1,5 +1,0 @@
-[project]
-name = "PySide QtQuick Project"
-
-[tool.pyside6-project]
-files = ["AddAutoWindow.py", "AddManualWindow.py", "AppState.py", "LoginWindow.py", "MenuWindow.py", "Resources_rc.py", "ShowByIDWindow.py", "ShowByWebWindow.py", "ShowPassMenuWindow.py", "main.py", "ui_Add_Auto.py", "ui_Add_Manual.py", "ui_Login.py", "ui_Menu.py", "ui_Show_Pass_Menu.py", "ui_Show_by_ID.py", "ui_Show_by_Web.py"]
